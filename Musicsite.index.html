@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.5">
+    <title>Spotify Playlist Recommender</title>
+    <style>
+        body {
+            background-color: #000000; 
+            font-family: Arial, sans-serif; 
+            color: #ffffff; 
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #1DB954;
+        }
+        .button-group button, select {
+            display: block;
+            width: 60%;
+            margin: 10px auto;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #1DB954;
+            color: rgb(255, 255, 255);
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .button-group button:hover, select:hover {
+            background-color: #14803d;
+        }
+        .form-section {
+            margin: 20px;
+        }
+        #selectedAnswers {
+            display: none;
+        }
+        #playlistLink {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: rgba(29, 185, 84, 0.2);
+            border-radius: 10px;
+        }
+        #playlistLink a {
+            color: #1DB954;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        #playlistLink a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Discover Your Perfect Spotify Playlist!</h1>  <div id="selectedAnswers">
+
+        <h3>Your Selections:</h3>
+        <div id="answersList"></div>
+    </div> 
+<!--sturcture for website-->
+<!--Quiz form-->
+    <form id="quizForm">
+        <h2>Which of the following colours do you like the most?</h2>
+        <div class="button-group" id="colour">
+             <button type="button" onclick="selectOption('colour', 'Red')">Red</button>
+             <button type="button" onclick="selectOption('colour', 'green')">Green</button>
+            <button type="button" onclick="selectOption('colour', 'yellow')">Yellow</button>
+            <button type="button" onclick="selectOption('colour', 'blue')">Blue</button>
+        </div>
+
+         <h2>How would you describe your fashion sense?</h2>
+         <div class="button-group" id="fashion">
+              <button type="button" onclick="selectOption('fashion', 'Neutrals')">Neutrals - mix of thrifted and new</button>
+              <button type="button" onclick="selectOption('fashion', 'Eclectic')">Eclectic - style changes depending on my mood</button>
+             <button type="button" onclick="selectOption('fashion', 'Comfortable')">Comfortable - physical comfort is more important than aesthetics to me</button>
+             <button type="button" onclick="selectOption('fashion', 'Business casual')">Business casual - dress to look good in any environment</button>
+         </div>
+    
+         <h2>What's your favourite way to listen to music?</h2>
+         <div class="button-group" id="method">
+              <button type="button" onclick="selectOption('method', 'bars')">Small live music in bars or pubs</button>
+             <button type="button" onclick="selectOption('method', 'vinyl records')">Vinyl records</button>
+             <button type="button" onclick="selectOption('method', 'headphones')">At home with good headphones and no distractions</button>
+            <button type="button" onclick="selectOption('method', 'concert')">Live at a concert</button>
+         </div><br>
+
+         <h2>Do you consider yourself an early bird or night owl?</h2>
+         <div class="button-group" id="sleep pattern">
+              <button type="button" onclick="selectOption('sleep pattern', 'sleep early,wake late')">Neither: I sleep early and wake up late</button>
+              <button type="button" onclick="selectOption('sleep pattern', 'sleep late, wake early')">Neither: I sleep late and wake up early</button>
+             <button type="button" onclick="selectOption('sleep pattern', 'early bird')">Early Bird</button>
+             <button type="button" onclick="selectOption('sleep pattern', 'night owl')">Night Owl</button>
+         </div>
+
+         <h2>What's your favourite holiday?</h2>
+         <div class="button-group" id="holiday">
+             <button type="button" onclick="selectOption('holiday', 'birthday')">My best friend's birthday</button>
+             <button type="button" onclick="selectOption('holiday', 'halloween')">Halloween</button>
+             <button type="button" onclick="selectOption('holiday', 'christmas')">Christmas</button>
+             <button type="button" onclick="selectOption('holiday', 'thanksgiving')">Thanksgiving</button>
+        </div>
+    
+         <h2>Which superpower would you want to have most?</h2>
+         <div class="button-group" id="superpower">
+             <button type="button" onclick="selectOption('superpower', 'Time')">Time manipulation</button>
+             <button type="button" onclick="selectOption('superpower', 'Teleportation')">Teleportation</button>
+             <button type="button" onclick="selectOption('superpower', 'Shapeshifting')">Shapeshifting</button>
+             <button type="button" onclick="selectOption('superpower', 'Invisibility')">Invisibility</button>
+         </div><br>
+
+         <h2>Which of these artists would you most like to see in concert?</h2>
+         <div class="button-group" id="artist">
+              <button type="button" onclick="selectOption('Artist', 'David Bowie, Hozier, or Chappell Roan')">David Bowie, Hozier, or Chappell Roan/button>
+              <button type="button" onclick="selectOption('Artist', 'Tyler The Creator, Eykah Badu, or Sade')">Tyler The Creator, Eykah Badu, or Sade</button>
+             <button type="button" onclick="selectOption('Artist', 'Nicole Dollanganger, M83, or Skepta')">Nicole Dollanganger, M83, or Skepta</button>
+             <button type="button" onclick="selectOption('Artist', 'Mac Miller, Coldplay, or Freddie Gibbs')">Mac Miller, Coldplay, or Freddie Gibbs</button>
+         </div>
+
+        <h2>What's your favourite dessert?</h2>
+        <div class="button-group" id="dessert">
+            <button type="button" onclick="selectOption('dessert', 'Chocolate cake')">Chocolate cake</button>
+            <button type="button" onclick="selectOption('dessert', 'Cookies')">Cookies</button>
+            <button type="button" onclick="selectOption('dessert', 'icecream')">Ice cream</button>
+            <button type="button" onclick="selectOption('dessert', 'Key lime pie')">Key lime pie</button>
+       </div>
+   
+        <h2>Which of these most describes your happy place?</h2>
+        <div class="button-group" id="happy place">
+            <button type="button" onclick="selectOption('happy place', 'tree')">Under a weeping willow tree by a body of water, quiet except for sounds of nature</button>
+            <button type="button" onclick="selectOption('happy place', 'tropical')">Somewhere sunny, tropical, and warm with a book to read</button>
+            <button type="button" onclick="selectOption('happy place', 'home')">My childhood home</button>
+            <button type="button" onclick="selectOption('happy place', 'store')">A cute trinket store with adequate heating, large aisle space, and limited overhead lighting</button>
+        </div><br>
+
+        <h2>How would you describe yourself?</h2>
+        <div class="button-group" id="describe">
+            <button type="button" onclick="selectOption('descirbe', 'comfort')">I prefer to stay within my comfort zone</button>
+            <button type="button" onclick="selectOption('descirbe', 'new')">I like to try new experiences as much as possible</button>
+        </div><br>
+
+       <h2>What is your ideal weather?</h2>
+       <div class="button-group" id="weather">
+           <button type="button" onclick="selectOption('weather', 'snow')">Fresh snow with large snowflakes falling, little to no wind</button>
+           <button type="button" onclick="selectOption('weather', 'sunny')">Sunny and warm, shorts and t-shirt weather</button>
+           <button type="button" onclick="selectOption('weather', 'rainy')">Rainy and foggy with sunrays that peak through</button>
+           <button type="button" onclick="selectOption('weather', 'no clouds')">Sunny with no clouds and no breeze, but cool enough to wear long sleeves</button>
+      </div>
+
+       <h2>What is your favourite sitcom?</h2>
+       <div class="button-group" id="sitcom">
+           <button type="button" onclick="selectOption('sitcom', 'Modern Family')">Modern Family</button>
+           <button type="button" onclick="selectOption('sitcom', 'Fresh Prince of Bel-Air')">Fresh Prince of Bel-Air</button>
+           <button type="button" onclick="selectOption('sitcom', 'no sitcoms')">I don't like sitcoms</button>
+           <button type="button" onclick="selectOption('sitcom', 'Key lime pie')">How I Met Your Mother</button>
+      </div>
+  
+       <h2>Where would you most like to travel to?</h2>
+       <div class="button-group" id="travel">
+           <button type="button" onclick="selectOption('travel', 'iceland')">Iceland</button>
+           <button type="button" onclick="selectOption('travel', 'japan')">Japan</button>
+           <button type="button" onclick="selectOption('travel', 'france')">France</button>
+           <button type="button" onclick="selectOption('travel', 'spain')">Spain</button>
+       </div><br>
+
+       <h2>What would be your go-to drink order?</h2>
+       <div class="button-group" id="describe">
+           <button type="button" onclick="selectOption('descirbe', 'Americano')">Americano or flat white, just nothing sweet</button>
+           <button type="button" onclick="selectOption('descirbe', 'matcha')">Matcha latte</button>
+           <button type="button" onclick="selectOption('descirbe', 'milk tea')">Milk tea</button>
+           <button type="button" onclick="selectOption('descirbe', 'chai')">Dirty Iced Chai</button>
+       </div><br> 
+
+<!-- Add this div for displaying the playlist -->
+<div id="playlistLink" style="display: none;">
+    <p id="playlistDescription"></p>
+    <a id="playlistUrl" href="#" target="_blank">Click here to open your playlist!</a>
+</div>
+<h2>Results Here!</h2>
+    <button type="button" onclick="getPlaylist()">Get Playlist</button>
+</form>
+
+<!--javascript-->
+<script>
+let answers = {};
+let answerOrder = [];
+
+// Define the playlists as constants
+const PLAYLISTS = {
+    first: 'https://open.spotify.com/playlist/3R0iU4BdL3MDVXWj3XE969?si=eRdbmA6YTYOZXIuEpamhuw&pi=u-STQiIqbvTByo',
+    second: 'https://open.spotify.com/playlist/6TeLpEynp1gtQMd61zRGrR?si=mnCmguvTSo-bkLT0zQBTlg&pi=u-hRPYkNhAS-Sx',
+    third: 'https://open.spotify.com/playlist/37i9dQZF1DWZd79rJ6a7lp',
+    fourth: 'https://open.spotify.com/playlist/48pSgtZFPHHOBSajK1OZ50?si=yeRNuiYPRZq9cpXV4N4NuA&pi=u-A7IbOfIZR8C0'
+};
+
+function selectOption(question, answer) {
+    // Find all buttons in the question group
+    const buttons = document.querySelectorAll(`#${question} button`);
+    
+    // Remove 'selected' class from all buttons in the group
+    buttons.forEach(btn => btn.classList.remove('selected'));
+    
+    // Add 'selected' class to clicked button
+    event.target.classList.add('selected');
+    
+    // Calculate position (0-based index) of clicked button within its group
+    const position = Array.from(buttons).indexOf(event.target);
+    
+    // Store the answer and its position
+    if (!answers[question]) {
+        answerOrder.push(question);
+    }
+    answers[question] = {
+        answer: answer,
+        position: position
+    };
+    
+    updateAnswerDisplay();
+}
+
+function updateAnswerDisplay() {
+    const answersList = document.getElementById('answersList');
+    if (!answersList) return;
+    
+    let html = '';
+    answerOrder.forEach((question, index) => {
+        const buttonPosition = answers[question].position + 1; // Convert to 1-based for display
+        html += `<p>${index + 1}. ${question}: ${answers[question].answer} (Button ${buttonPosition})</p>`;
+    });
+    answersList.innerHTML = html;
+}
+
+function getPlaylist() {
+    if (Object.keys(answers).length === 0) {
+        alert('Please answer at least one question before getting your playlist!');
+        return;
+    }
+
+    // Count the number of times each button position was selected
+    const positionCounts = [0, 0, 0, 0]; 
+    
+    Object.values(answers).forEach(answer => {
+        positionCounts[answer.position]++;
+    });
+
+    // most frequently selected button position
+    let maxCount = -1;
+    let mostCommonPosition = 0;
+    
+    positionCounts.forEach((count, position) => {
+        if (count > maxCount) {
+            maxCount = count;
+            mostCommonPosition = position;
+        }
+    });
+
+    // Select playlist based on most common button position
+    let playlistLink;
+    let description;
+    
+    switch(mostCommonPosition) {
+        case 0:
+            playlistLink = PLAYLISTS.first;
+            description = "Based on your choices, here's a playlist that matches your vibe! You tend to go with your first instincts.";
+            break;
+        case 1:
+            playlistLink = PLAYLISTS.second;
+            description = "Here's a playlist that reflects your thoughtful second choices!";
+            break;
+        case 2:
+            playlistLink = PLAYLISTS.third;
+            description = "Your selections show you like to explore different options. Here's a playlist for you!";
+            break;
+        case 3:
+            playlistLink = PLAYLISTS.fourth;
+            description = "You often chose the last option, showing unique taste. Here's a playlist just for you!";
+            break;
+    }
+
+    // Update the playlist display
+    const playlistUrlElement = document.getElementById('playlistUrl');
+    const playlistDescElement = document.getElementById('playlistDescription');
+    const playlistLinkElement = document.getElementById('playlistLink');
+
+    if (playlistUrlElement && playlistDescElement && playlistLinkElement) {
+        playlistUrlElement.href = playlistLink;
+        playlistDescElement.textContent = description;
+        playlistLinkElement.style.display = 'block';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('select').forEach(select => {
+        select.addEventListener('change', (event) => {
+            const question = event.target.id;
+            const selectedOption = event.target.selectedOptions[0];
+            const position = Array.from(event.target.options).indexOf(selectedOption);
+            
+            if (!answers[question]) {
+                answerOrder.push(question);
+            }
+            answers[question] = {
+                answer: selectedOption.value,
+                position: position
+            };
+            
+            updateAnswerDisplay();
+        });
+    });
+});
+
+</script>
+
+</body>
+</html>
